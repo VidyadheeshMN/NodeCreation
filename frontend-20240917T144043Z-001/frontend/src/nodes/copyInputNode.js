@@ -32,9 +32,10 @@ export const InputNode = ({ id, data }) => {
           <Input type='text' value={currName} onChange={handleNameChange} />
         </label>
         <CustomSelect
-          options={
-            ({ value: "Text", label: "Text" }, { value: "File", label: "File" })
-          }
+          options={[
+            { value: "Text", label: "Text" },
+            { value: "File", label: "File" },
+          ]}
         />
       </div>
     </LayoutNode>
