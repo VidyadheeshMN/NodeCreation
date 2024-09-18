@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { shallow } from "zustand/shallow";
 import { useStore } from "./store";
@@ -18,15 +18,23 @@ const parseUrl = "http://localhost:8000/pipelines/parse";
 const SubmitButton = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const { setResult, setModalShow } = props;
 
   const { nodes, edges } = useStore(selector, shallow);
+
+  useEffect(() => {
+    if (nodes.length < 1) {
+      setIsDisabled(true);
+    } else setIsDisabled(false);
+  });
 
   const buttonStyle = {
     padding: "12px 24px",
     fontSize: "16px",
     backgroundColor: "#6366F1",
     color: "white",
-    border: "2px solid transparent",
+    border: "1px solid transparent",
     borderRadius: "4px",
     cursor: "pointer",
     transition: "border-color 0.4s ease, opacity 0.3s ease",
@@ -42,11 +50,10 @@ const SubmitButton = (props) => {
     const cleanNodes = nodes.map((node) => ({ id: node.id, type: node.type }));
     const cleanEdges = edges.map((edge) => ({
       source: edge.source,
-      sourceHandle: edge.sourceHandle,
+      // sourceHandle: edge.sourceHandle,
       target: edge.target,
-      targetHandle: edge.targetHandle,
+      // targetHandle: edge.targetHandle,
     }));
-    console.log("nodes and edges are: ", nodes, edges);
     setIsClicked(true);
     try {
       const res = await axios.post(parseUrl, {
@@ -54,8 +61,12 @@ const SubmitButton = (props) => {
         edges: cleanEdges,
       });
       console.log("result is: ", res.data);
+      setModalShow(true);
+      setResult({ ...res.data, status: "success" });
     } catch (err) {
       console.log("error occured while trying to get DAG information: ", err);
+      setResult({ status: "failed" });
+      setModalShow(true);
     } finally {
       setIsClicked(false);
     }
@@ -70,6 +81,7 @@ const SubmitButton = (props) => {
       }}
     >
       <button
+        disabled={isDisabled}
         style={isFocused ? { ...buttonStyle, ...focusStyle } : buttonStyle}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}

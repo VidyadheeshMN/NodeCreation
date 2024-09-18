@@ -3,7 +3,6 @@
 export const LayoutNode = ({ id, header = "Random", components, children }) => {
   const isCustomHeaderPresent =
     components.Header && components.Header() ? true : false;
-  console.log("components. handle is: ", components.Handles);
   return (
     <div
       id={id}
