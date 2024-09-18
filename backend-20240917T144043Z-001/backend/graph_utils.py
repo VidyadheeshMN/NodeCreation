@@ -1,5 +1,5 @@
 def is_dag(nodes, edges):
-    def is_cyclic_util(node, visited, rec_stack):
+    def is_cyclic(node, visited, rec_stack):
         # If the node is in the recursion stack, a cycle is detected
         if node in rec_stack:
             return True
@@ -14,7 +14,7 @@ def is_dag(nodes, edges):
 
         # Recur for all neighbors
         for neighbor in graph.get(node, []):
-            if is_cyclic_util(neighbor, visited, rec_stack):
+            if is_cyclic(neighbor, visited, rec_stack):
                 return True
         
         # Remove the node from recursion stack
@@ -37,6 +37,6 @@ def is_dag(nodes, edges):
     # Check for cycles in the graph
     for node in nodes:
         node_id = node['id']  # Extract node ID
-        if is_cyclic_util(node_id, visited, rec_stack):
+        if is_cyclic(node_id, visited, rec_stack):
             return False
     return True

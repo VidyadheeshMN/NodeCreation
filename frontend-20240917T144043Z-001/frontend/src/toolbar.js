@@ -18,6 +18,7 @@ export const PipelineToolbar = () => {
         <DraggableNode type='customOutput' label='Output' />
         <DraggableNode type='text' label='Text' />
         <DraggableNode type='random' label='Random' />
+        <DraggableNode type='useless' label='Useless' />
       </div>
     </div>
   );

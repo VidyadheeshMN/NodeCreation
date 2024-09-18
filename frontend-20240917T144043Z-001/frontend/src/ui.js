@@ -11,6 +11,7 @@ import { LLMNode } from "./nodes/copyLlmNode";
 import { OutputNode } from "./nodes/copyOutputNode";
 import { TextNode } from "./nodes/copyTextNode";
 import { RandomNode } from "./nodes/randomNode";
+import { UselessNode } from "./nodes/uselessNode";
 
 import "reactflow/dist/style.css";
 
@@ -22,6 +23,7 @@ const nodeTypes = {
   customOutput: OutputNode,
   text: TextNode,
   random: RandomNode,
+  useless: UselessNode,
 };
 
 const selector = (state) => ({
