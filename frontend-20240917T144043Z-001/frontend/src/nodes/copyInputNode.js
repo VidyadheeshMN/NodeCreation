@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
 import { LayoutNode } from "./layoutNode";
+import Input from "../autoGrowInput";
+import CustomSelect from "../select";
 
 export const InputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(
@@ -12,10 +14,6 @@ export const InputNode = ({ id, data }) => {
 
   const handleNameChange = (e) => {
     setCurrName(e.target.value);
-  };
-
-  const handleTypeChange = (e) => {
-    setInputType(e.target.value);
   };
 
   return (
@@ -31,15 +29,13 @@ export const InputNode = ({ id, data }) => {
       <div>
         <label>
           Name:
-          <input type='text' value={currName} onChange={handleNameChange} />
+          <Input type='text' value={currName} onChange={handleNameChange} />
         </label>
-        <label>
-          Type:
-          <select value={inputType} onChange={handleTypeChange}>
-            <option value='Text'>Text</option>
-            <option value='File'>File</option>
-          </select>
-        </label>
+        <CustomSelect
+          options={
+            ({ value: "Text", label: "Text" }, { value: "File", label: "File" })
+          }
+        />
       </div>
     </LayoutNode>
   );

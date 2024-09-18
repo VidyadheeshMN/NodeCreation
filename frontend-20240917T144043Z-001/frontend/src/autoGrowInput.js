@@ -25,7 +25,7 @@ const Input = (props) => {
   return (
     <TextareaAutosize
       {...props}
-      maxRows={shouldAutoGrow ? 6 : 1}
+      maxRows={shouldAutoGrow ? 7 : 1}
       style={isFocused ? { ...inputStyle, ...focusStyle } : inputStyle}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}

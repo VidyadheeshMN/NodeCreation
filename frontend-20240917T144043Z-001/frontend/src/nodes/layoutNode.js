@@ -3,6 +3,7 @@
 export const LayoutNode = ({ id, header = "Random", components, children }) => {
   const isCustomHeaderPresent =
     components.Header && components.Header() ? true : false;
+  console.log("components. handle is: ", components.Handles);
   return (
     <div
       id={id}
@@ -38,7 +39,7 @@ export const LayoutNode = ({ id, header = "Random", components, children }) => {
         style={{
           background: "rgba(255, 255, 255, 0.5)",
           borderRadius: "0 0 0.5rem 0.5rem",
-          maxHeight: 100,
+          maxHeight: 300,
           overflowY: "auto",
           padding: "0.4rem",
           scrollbarWidth: "none",

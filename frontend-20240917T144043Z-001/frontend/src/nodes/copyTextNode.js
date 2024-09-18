@@ -32,17 +32,24 @@ export const TextNode = ({ id, data }) => {
     <LayoutNode
       id={id}
       components={{
-        Handles: () => <Handle position={Position.Right} id={`${id}-output`} />,
+        Handles: () => (
+          <>
+            <Handle position={Position.Right} id={`${id}-output`} />
+            {variables.map((vrbl, i) => (
+              <HandleGenerator
+                id={`${id}-${vrbl}`}
+                key={i}
+                variableName={vrbl}
+                style={{
+                  top: `${(100 / (variables.length + 1)) * (i + 1)}%`,
+                }}
+              />
+            ))}
+          </>
+        ),
       }}
       header='Text'
     >
-      <div
-        style={{ position: "absolute", top: 0, right: 308, textAlign: "right" }}
-      >
-        {variables.map((vrbl) => (
-          <div>{vrbl}</div>
-        ))}
-      </div>
       <div>
         <Input
           type='text'
@@ -52,5 +59,24 @@ export const TextNode = ({ id, data }) => {
         />
       </div>
     </LayoutNode>
+  );
+};
+
+const HandleGenerator = ({ id, variableName, style, key }) => {
+  return (
+    <div key={key}>
+      <div
+        style={{
+          ...style,
+          position: "absolute",
+          textAlign: "right",
+          right: 308,
+          transform: "translate(0, -50%)",
+        }}
+      >
+        {variableName}
+      </div>
+      <Handle type='source' position={Position.Left} id={id} style={style} />
+    </div>
   );
 };

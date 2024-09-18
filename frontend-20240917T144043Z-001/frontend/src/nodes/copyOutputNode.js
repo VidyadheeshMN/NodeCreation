@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Handle, Position } from "reactflow";
 import { LayoutNode } from "./layoutNode";
-import CustomSelect from "../Select";
+import CustomSelect from "../select";
 import Input from "../autoGrowInput";
 
 export const OutputNode = ({ id, data }) => {
@@ -38,6 +38,7 @@ export const OutputNode = ({ id, data }) => {
         ),
       }}
     >
+      s
       <div>
         <Input
           shouldAutoGrow={false}
